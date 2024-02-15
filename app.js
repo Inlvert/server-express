@@ -18,3 +18,5 @@ app.get("/users", UserController.getUsers);
 const bodyParser = express.json();
 
 app.post("/users", bodyParser, validateUser, UserController.createUsers);
+
+app.get("/users", UserController.getUser);
