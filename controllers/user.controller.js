@@ -1,21 +1,17 @@
-const users = [];
+const { User } = require("../models");
+
 
 module.exports.createUsers = async (req, res) => {
+  const { user: userData } = req;
+
+  const user = await User.create(userData)
+
   
-  const { user } = req;
-
-  user.id = Date.now();
-
-  users.push(user);
 
   res.send(user); // (req.body)
 };
 
-
-
-
 module.exports.getUsers = async (req, res) => {
+  const users = await User.findAll();
   res.send(users);
 };
-
-
