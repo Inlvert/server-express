@@ -23,6 +23,14 @@ module.exports.getUser = async (req, res, next) => {
   res.send(user);
 };
 
+module.exports.getUserQuery = async (req, res, next) => {
+  const { query: {id} } = req;
+
+  const user = await User.findByid(+id);
+
+  res.send(user);
+}
+
 module.exports.deleteUser = async (req, res) => {
   const {
     params: { userId },

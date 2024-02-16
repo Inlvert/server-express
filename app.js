@@ -19,4 +19,12 @@ const bodyParser = express.json();
 
 app.post("/users", bodyParser, validateUser, UserController.createUsers);
 
-app.get("/users", UserController.getUser);
+app.get("/user", UserController.getUserQuery);
+
+app.get("/users/:userId", async (req, res, next) => {
+  res.send(req.params);
+});
+
+app.get("/users/:userId/message/:messageId", async (req, res, next) => {
+  res.send(req.params);
+});
