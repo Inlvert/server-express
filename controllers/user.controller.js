@@ -24,27 +24,30 @@ module.exports.getUser = async (req, res, next) => {
 };
 
 module.exports.getUserQuery = async (req, res, next) => {
-  const { query: {id} } = req;
+  const {
+    query: { id },
+  } = req;
 
   const user = await User.findByid(+id);
 
   res.send(user);
-}
+};
 
-module.exports.deleteUser = async (req, res) => {
+module.exports.deleteUser = async (req, res, next) => {
   const {
     params: { userId },
   } = req;
 
-  const deletedUser = await User.deleteById(+userId);
+  const deleteUser = await User.deleteById(+userId);
 
-  res.send(deletedUser);
+  res.send(deleteUser);
+  console.log(deleteUser);
 };
 
-module.exports.updateUser = async (req, res) => {
+module.exports.updateUser = async (req, res, next) => {
   const {
     params: { userId },
-    body
+    body,
   } = req;
 
   const updatedUser = await User.updateById(+userId, body);

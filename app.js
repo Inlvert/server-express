@@ -21,9 +21,9 @@ app.post("/users", bodyParser, validateUser, UserController.createUsers);
 
 app.get("/user", UserController.getUserQuery);
 
-app.get("/users/:userId", async (req, res, next) => {
-  res.send(req.params);
-});
+app.delete("/users/:userId", UserController.deleteUser)
+
+app.get("/users/:userId", UserController.getUser);
 
 app.get("/users/:userId/message/:messageId", async (req, res, next) => {
   res.send(req.params);
