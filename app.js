@@ -11,22 +11,27 @@ app.listen(PORT, () => {
 
 const bodyParser = express.json();
 
-// app.get("/", (req, res) => {
-//   res.end(`Method is: "${req.method}", path is: "${req.path}"`);
-// });
+app
+  .route("/users")
+  .get(UserController.getUsers)
+  .post(bodyParser, validateUser, UserController.createUsers);
 
-app.get("/users", UserController.getUsers);
-
-
-app.post("/users", bodyParser, validateUser, UserController.createUsers);
+// app.get("/users", UserController.getUsers);
+// app.post("/users", bodyParser, validateUser, UserController.createUsers);
 
 app.get("/user", UserController.getUserQuery);
 
-app.delete("/users/:userId", UserController.deleteUser);
+app
+  .route("/users/:userId")
+  .delete(UserController.deleteUser)
+  .get(UserController.getUser)
+  .put(bodyParser, UserController.updateUser);
 
-app.get("/users/:userId", UserController.getUser);
+// app.delete("/users/:userId", UserController.deleteUser);
 
-app.put("/users/:userId", bodyParser, UserController.updateUser);
+// app.get("/users/:userId", UserController.getUser);
+
+// app.put("/users/:userId", bodyParser, UserController.updateUser);
 
 app.get("/users/:userId/message/:messageId", async (req, res, next) => {
   res.send(req.params);
