@@ -82,7 +82,7 @@ class User {
         foundUser[key] = value;
       }
 
-      await fs.writeFile(userDbPath, JSON.stringify(newUserDB, null, 4));
+      await fs.writeFile(userDbPath, JSON.stringify(userDB, null, 4));
       
     } else {
       throw new Error("User not found");

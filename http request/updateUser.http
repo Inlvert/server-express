@@ -1,0 +1,8 @@
+PUT http://localhost:5000/users/1708077206675 HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "new@mail.net",
+  "password": "AdminAdmin12345&",
+  "id": 17
+}
