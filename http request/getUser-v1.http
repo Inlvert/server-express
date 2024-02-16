@@ -1,1 +1,1 @@
-GET http://localhost:5000/user?id=1708012111628 HTTP/1.1
+GET http://localhost:5000/api/user?id=1708120639109 HTTP/1.1
