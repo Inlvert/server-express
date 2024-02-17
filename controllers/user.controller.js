@@ -1,11 +1,16 @@
 const { User } = require("../models");
+const createHttpError = require('http-errors');
 
 module.exports.createUsers = async (req, res) => {
-  const { user: userData } = req;
+  try {
+    const { user: userData } = req;
 
-  const user = await User.create(userData);
+    const user = await User.create(userData);
 
-  res.send(user); // (req.body)
+    res.send(user); // (req.body)
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports.getUsers = async (req, res) => {
@@ -14,43 +19,64 @@ module.exports.getUsers = async (req, res) => {
 };
 
 module.exports.getUser = async (req, res, next) => {
-  const {
-    params: { userId },
-  } = req;
+  try {
+    const {
+      params: { userId },
+    } = req;
 
-  const user = await User.findByid(+userId);
+    const user = await User.findByid(+userId);
 
-  res.send(user);
+    if(!user) {
+      const error = createHttpError(404, 'where is user?');
+      return next(error);
+    }
+
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports.getUserQuery = async (req, res, next) => {
-  const {
-    query: { id },
-  } = req;
+  try {
+    const {
+      query: { id },
+    } = req;
 
-  const user = await User.findByid(+id);
+    const user = await User.findByid(+id);
 
-  res.send(user);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports.deleteUser = async (req, res, next) => {
-  const {
-    params: { userId },
-  } = req;
+  try {
+    const {
+      params: { userId },
+    } = req;
 
-  const deleteUser = await User.deleteById(+userId);
+    const deleteUser = await User.deleteById(+userId);
 
-  res.send(deleteUser);
-  console.log(deleteUser);
+    res.send(deleteUser);
+    console.log(deleteUser);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports.updateUser = async (req, res, next) => {
-  const {
-    params: { userId },
-    body,
-  } = req;
+  try {
+    const {
+      params: { userId },
+      body,
+    } = req;
 
-  const updatedUser = await User.updateById(+userId, body);
+    const updatedUser = await User.updateById(+userId, body);
 
-  res.send(updatedUser);
+    res.send(updatedUser);
+  } catch (error) {
+    next(error);
+  }
 };

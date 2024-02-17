@@ -47,11 +47,13 @@ class User {
 
     const foundUser = userDB.find((user, index, arr) => user.id === id);
 
-    if (foundUser) {
-      return foundUser;
-    } else {
-      throw new Error("User not found");
-    }
+    return foundUser;
+
+    // if (foundUser) {
+    //   return foundUser;
+    // } else {
+    //   throw new Error("User not found");
+    // }
   }
 
   static async deleteById(id) {
@@ -61,11 +63,20 @@ class User {
 
     const foundUser = userDB.find((user, index, arr) => user.id === id);
 
-    const newUserDB = userDB.filter((user) => user.id !== id);
+    if(foundUser) {
 
-    await fs.writeFile(userDbPath, JSON.stringify(newUserDB, null, 4));
+      const newUserDB = userDB.filter((user) => user.id !== id);
+  
+      await fs.writeFile(userDbPath, JSON.stringify(newUserDB, null, 4));
+  
+      return foundUser;
 
-    return foundUser;
+    } else {
+
+      throw new Error("User not found");
+
+    }
+
   }
 
   static async updateById(id, newValues) {

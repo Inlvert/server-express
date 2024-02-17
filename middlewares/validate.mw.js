@@ -7,7 +7,8 @@ const validateUser = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.send("error hapend");
+    next(error)
+    // res.send("error hapend");
   }
 };
 
