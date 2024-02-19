@@ -1,13 +1,13 @@
 const { User } = require("../models");
-const createHttpError = require('http-errors');
+const createHttpError = require("http-errors");
 
-module.exports.createUsers = async (req, res) => {
+module.exports.createUsers = async (req, res, next) => {
   try {
-    const { user: userData } = req;
+    const { user: userData, body, file } = req;
 
-    const user = await User.create(userData);
+    const user = await User.create({ ...userData, imagePath: file.filename });
 
-    res.send(user); // (req.body)
+    res.status(201).send({ user, file }); // (req.body)
   } catch (error) {
     next(error);
   }
@@ -26,8 +26,8 @@ module.exports.getUser = async (req, res, next) => {
 
     const user = await User.findByid(+userId);
 
-    if(!user) {
-      const error = createHttpError(404, 'where is user?');
+    if (!user) {
+      const error = createHttpError(404, "where is user?");
       return next(error);
     }
 

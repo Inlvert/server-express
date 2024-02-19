@@ -3,6 +3,8 @@ const router = require("./routers/index");
 const { ValidationError } = require("yup");
 const AplicationError = require("./errors/AplicationError");
 
+
+
 const app = express();
 
 app.use(express.json()); // const bodyParser = express.json();\\
