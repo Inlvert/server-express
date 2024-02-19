@@ -5,7 +5,10 @@ const AplicationError = require("./errors/AplicationError");
 
 
 
+
 const app = express();
+
+app.use(express.static('public'));
 
 app.use(express.json()); // const bodyParser = express.json();\\
 app.use("/api", router); // all routers through '/api'

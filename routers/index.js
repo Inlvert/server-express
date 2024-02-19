@@ -3,7 +3,8 @@ const { validateUser } = require("../middlewares/validate.mw");
 const UserController = require("../controllers/user.controller");
 const router = express.Router();
 const multer  = require('multer');
-const path = require('path')
+const path = require('path');
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
